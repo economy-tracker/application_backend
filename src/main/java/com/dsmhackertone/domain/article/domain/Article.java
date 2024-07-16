@@ -20,7 +20,7 @@ public class Article extends BaseEntity {
     @Column(columnDefinition = "VARCHAR(20)", nullable = false)
     private String category;
 
-    @Column(columnDefinition = "DATETIME", nullable = false)
+    @Column(columnDefinition = "DATE", nullable = false)
     private Date pubDate;
 
     @Column(columnDefinition = "VARCHAR(100)", nullable = true)
