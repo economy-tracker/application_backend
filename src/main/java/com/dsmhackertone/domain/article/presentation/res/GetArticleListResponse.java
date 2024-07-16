@@ -10,8 +10,6 @@ import java.util.List;
 
 @Getter
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class GetArticleListResponse {
 
     private List<Article> articles;

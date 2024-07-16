@@ -2,13 +2,13 @@ package com.dsmhackertone.domain.article.domain;
 
 import com.dsmhackertone.global.entity.BaseEntity;
 import jakarta.persistence.Column;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
 import lombok.Data;
 
 import java.sql.Date;
 
 @Data
-@AllArgsConstructor
+@Entity
 public class Article extends BaseEntity {
 
     @Column(columnDefinition = "VARCHAR(50)", nullable = false)
