@@ -22,8 +22,11 @@ public class ArticleController {
     private final GetArticlePercentService getArticlePercentService;
 
     @GetMapping
-    public GetArticleListResponse getArticle(@RequestParam(value = "page", defaultValue = "1") Integer page) throws BadRequestException {
-        return getArticleListService.execute(page);
+    public GetArticleListResponse getArticle(
+            @RequestParam(value = "page", defaultValue = "1") Integer page,
+            @RequestParam(value = "category", defaultValue = "economy") String category
+    ) throws BadRequestException {
+        return getArticleListService.execute(page, category);
     }
 
     @GetMapping("/chart")

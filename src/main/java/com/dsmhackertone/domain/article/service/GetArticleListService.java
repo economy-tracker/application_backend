@@ -20,17 +20,19 @@ public class GetArticleListService {
     private final ArticleRepository repository;
 
     @Transactional(readOnly = true)
-    public GetArticleListResponse execute(Integer page) throws BadRequestException {
-        if (page == 0) throw new BadRequestException("페이지 번호가 옳지 않습니다 ; ;");
+    public GetArticleListResponse execute(Integer page, String category) throws BadRequestException {
+        if (page == 0) throw new BadRequestException("페이지 번호가 옳지 않습니다");
 
-        List<Article> articles = repository.findAllOrderByPubDate((page - 1) * 10);
+        List<Article> articles = repository.findAllByCategoryOrderByPubDate(category);
 
-        if (articles.isEmpty()) throw new BadRequestException("페이지 번호가 옳지 않습니다 ; ;");
+        if (articles.isEmpty()) throw new BadRequestException("결과값이 없습니다.");
+
+
 
         return GetArticleListResponse.builder()
-                .articles(articles)
+                .articles(articles.stream().skip((page - 1) * 10).limit(10).toList())
                 .currentPage(page)
-                .endPage(articles.size())
+                .endPage((articles.size() + 9) / 10)
                 .build();
     }
 }

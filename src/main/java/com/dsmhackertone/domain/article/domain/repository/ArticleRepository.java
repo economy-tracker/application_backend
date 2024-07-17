@@ -15,9 +15,9 @@ public interface ArticleRepository extends JpaRepository<Article, UUID> {
 
     @Query( "SELECT a " +
             "FROM Article a " +
-            "ORDER BY a.pubDate DESC " +
-            "LIMIT 10 OFFSET :page")
-    List<Article> findAllOrderByPubDate(@Param("page") Integer page);
+            "WHERE a.category = :category " +
+            "ORDER BY a.pubDate DESC")
+    List<Article> findAllByCategoryOrderByPubDate(@Param("category") String category);
 
     @Query( "SELECT a.category category, COUNT(*) / CAST(total.count AS double) * 100 percent " +
             "FROM Article a, (" +
