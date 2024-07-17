@@ -29,5 +29,19 @@ public interface ArticleRepository extends JpaRepository<Article, UUID> {
             "GROUP BY a.category")
     List<Map<String, Object>> findAllPercentLastMonthGroupByCategory();
 
+    @Query( "SELECT a " +
+            "FROM Article a " +
+            "WHERE a.important >= 7 " +
+            "ORDER BY a.important DESC " +
+            "LIMIT 10")
+    List<Article> findAllOrderByImportant();
 
+
+    @Query( value =
+            "SELECT MONTH(a.pubDate) month, count(1) count " +
+            "FROM Article a " +
+            "WHERE DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 6 MONTH), \"%Y-%m\") <= a.pubDate AND " +
+                "a.category = :category " +
+            "GROUP BY MONTH(a.pubDate)", nativeQuery = true)
+    List<Map<String, Object>> findAllCountByCategory(@Param("category") String category);
 }

@@ -8,7 +8,12 @@ import java.util.List;
 
 @Getter
 @Builder
-public class GetArticleListResponse {
+public class GetArticlePageListResponse {
+
+    private Integer currentPage;
+
+    private Integer endPage;
 
     private List<Article> articles;
 }
+
