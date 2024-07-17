@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.UUID;
 
 @Repository
@@ -20,7 +19,7 @@ public interface ArticleRepository extends JpaRepository<Article, UUID> {
             "LIMIT 10 OFFSET :page")
     List<Article> findAllOrderByPubDate(@Param("page") Integer page);
 
-    @Query( "SELECT a.category, ROUND(COUNT(1) / total.count * 100, 1) " +
+    @Query( "SELECT a.category category, COUNT(*) / CAST(total.count AS double) * 100 percent " +
             "FROM Article a, (" +
                 "SELECT COUNT(1) count " +
                 "FROM Article a " +

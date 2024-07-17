@@ -1,5 +1,6 @@
 package com.dsmhackertone.domain.article.presentation.res;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -7,15 +8,14 @@ import java.util.Map;
 
 @Getter
 @Builder
+@AllArgsConstructor
 public class GetArticlePercentResponse {
 
     private String category;
-    private double percent;
+    private Double percent;
 
     public GetArticlePercentResponse(Map<String, Object> map) {
-        GetArticlePercentResponse.builder()
-                .category((String) map.get("category"))
-                .percent((Double) map.get("percent"))
-                .build();
+        this.category = (String) map.get("category");
+        this.percent = (Double) map.get("percent");
     }
 }
