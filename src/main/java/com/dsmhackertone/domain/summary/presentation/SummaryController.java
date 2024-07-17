@@ -19,7 +19,6 @@ public class SummaryController {
 
     @GetMapping("/phrase")
     public GetSummaryResponse getTodaySummary(@RequestParam(value = "date", required = false) LocalDate date) {
-        LocalDate today = (date == null) ? LocalDate.now() : date;
-        return getSummaryByDayService.execute(today);
+        return getSummaryByDayService.execute(date);
     }
 }

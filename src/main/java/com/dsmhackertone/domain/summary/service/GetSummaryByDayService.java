@@ -15,7 +15,9 @@ public class GetSummaryByDayService {
     private final SummaryRepository repository;
 
     public GetSummaryResponse execute(LocalDate day) {
-        Summary summary = repository.findByDay(day);
+        Summary summary = (day == null) ?
+                repository.findFirst() :
+                repository.findByDay(day);
 
         return GetSummaryResponse.builder()
                 .phrase(summary.getPhrase())
