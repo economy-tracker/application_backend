@@ -38,10 +38,21 @@ public interface ArticleRepository extends JpaRepository<Article, UUID> {
 
 
     @Query( value =
-            "SELECT MONTH(a.pubDate) month, count(1) count " +
-            "FROM Article a " +
-            "WHERE DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 6 MONTH), \"%Y-%m\") <= a.pubDate AND " +
-                "a.category = :category " +
-            "GROUP BY MONTH(a.pubDate)", nativeQuery = true)
+            "WITH RECURSIVE MONTHS (m) AS( " +
+                "SELECT 1 " +
+                "UNION ALL " +
+                "SELECT m + 1 " +
+                "FROM MONTHS " +
+                "WHERE m < 12 " +
+            ") " +
+
+            "SELECT m month, count " +
+            "FROM MONTHS " +
+            "LEFT JOIN (SELECT MONTH(pub_date) month, count(1) count " +
+                "FROM article " +
+                "WHERE DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 6 MONTH), \"%Y-%m\") <= article.pub_date AND " +
+                    "category = :category " +
+                "GROUP BY MONTH(pub_date)) data on m = month " +
+            "ORDER BY month", nativeQuery = true)
     List<Map<String, Object>> findAllCountByCategory(@Param("category") String category);
 }

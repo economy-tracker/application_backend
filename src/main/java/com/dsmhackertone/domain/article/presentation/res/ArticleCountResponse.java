@@ -14,11 +14,11 @@ import java.util.Map;
 @AllArgsConstructor
 public class ArticleCountResponse {
 
-    private Integer count;
+    private Long count;
     private String month;
 
     public ArticleCountResponse(Map<String, Object> map) {
-        this.month = Month.of((Integer) map.get("month")).toString();
-        this.count = (Integer) map.get("count");
+        this.month = Month.of(Math.toIntExact((Long) map.get("month"))).toString();
+        this.count = (map.get("count") == null) ? 0 : (Long) map.get("count");
     }
 }
