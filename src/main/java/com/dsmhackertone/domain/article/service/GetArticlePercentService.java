@@ -4,6 +4,7 @@ import com.dsmhackertone.domain.article.domain.repository.ArticleRepository;
 import com.dsmhackertone.domain.article.presentation.res.GetArticlePercentResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ public class GetArticlePercentService {
 
     private final ArticleRepository repository;
 
+    @Transactional(readOnly = true)
     public List<GetArticlePercentResponse> execute() {
         return repository.findAllPercentLastMonthGroupByCategory().stream().map(GetArticlePercentResponse::new).toList();
     }
