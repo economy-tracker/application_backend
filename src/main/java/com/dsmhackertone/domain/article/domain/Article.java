@@ -6,7 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Data;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -22,7 +22,7 @@ public class Article extends BaseEntity {
     private String category;
 
     @Column(columnDefinition = "DATE", nullable = false)
-    private Date pubDate;
+    private LocalDate pubDate;
 
     @Column(columnDefinition = "VARCHAR(100)", nullable = true)
     private String link;
