@@ -25,10 +25,6 @@ public class GetArticleListService {
 
         List<Article> articles = repository.findAllByCategoryOrderByPubDate(category);
 
-        if (articles.isEmpty()) throw new BadRequestException("결과값이 없습니다.");
-
-
-
         return GetArticleListResponse.builder()
                 .articles(articles.stream().skip((page - 1) * 10).limit(10).toList())
                 .currentPage(page)
