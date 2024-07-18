@@ -32,7 +32,7 @@ public interface ArticleRepository extends JpaRepository<Article, UUID> {
     @Query( "SELECT a " +
             "FROM Article a " +
             "WHERE a.important >= 7 " +
-            "ORDER BY a.important DESC " +
+            "ORDER BY a.pubDate DESC, a.important DESC " +
             "LIMIT 10")
     List<Article> findAllOrderByImportant();
 

@@ -5,8 +5,6 @@ import com.dsmhackertone.domain.article.domain.repository.ArticleRepository;
 import com.dsmhackertone.domain.article.presentation.res.GetArticlePageListResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GetArticleListService {
 
-    private static final Logger log = LoggerFactory.getLogger(GetArticleListService.class);
     private final ArticleRepository repository;
 
     @Transactional(readOnly = true)
